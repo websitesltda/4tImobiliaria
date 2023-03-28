@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { LogBox } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome';
 import Configs from './src/Configs';
 
@@ -14,6 +15,8 @@ import Vistoria from './src/Pages/PageVistoria';
 import VistoriaList from './src/Pages/PageVistoriaList';
 import Formulario from './src/Pages/PageFormulario';
 import CameraForm from './src/Pages/PageCamera';
+
+LogBox.ignoreAllLogs();
 
 //#endregion
 
