@@ -23,17 +23,18 @@ function Formulario({ navigation, route }) {
                         placeholderTextColor: Configs.ColorGray,
                         autoCorrect: false,
                         autoCapitalize: 'none',
-                        style: style.AutoComplete
+                        style: style.AutoComplete,
+                        value:Ambiente ? Ambiente.title:null
                     }}
-                    initialValue={{ id: 1 }}
                     onChangeText={(e) => setAmbiente({ id: null, title: e })}
                     onSelectItem={(e) => setAmbiente(e)}
+                    initialValue={Ambiente}
                     rightButtonsContainerStyle={style.rightButtonsContainerStyle}
                     inputContainerStyle={style.inputContainerStyle}
                     suggestionsListContainerStyle={style.suggestionsListContainerStyle}
                     containerStyle={style.containerStyle}
                     clearOnFocus={false}
-                    closeOnBlur={false}
+                    closeOnBlur={true}
                     closeOnSubmit={false}
                     emptyResultText="Opção não cadastrada"
                     renderItem={model => <View style={{ width: '100%', height: 40, alignItems: 'flex-start', paddingHorizontal: 10, justifyContent: 'center' }}><Text style={{ fontWeight: '500', color: Configs.ColorGray200 }}>{model.title}</Text></View>}
