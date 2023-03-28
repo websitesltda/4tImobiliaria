@@ -1,4 +1,4 @@
-package br.com.quatrotsistemas.santamaria;
+package br.com.s4tsistemas.santamaria;
 
 import android.os.Build;
 import android.os.Bundle;

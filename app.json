@@ -16,8 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "package": "br.com.4tsistemas.santamaria",
-      "bundleIdentifier": "br.com.4tsistemas.santamaria"
+      "package": "br.com.s4tsistemas.santamaria",
+      "bundleIdentifier": "br.com.s4tsistemas.santamaria"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
         "android.permission.RECORD_AUDIO",
         "android.permission.CAMERA"
       ],
-      "package": "br.com.quatrotsistemas.santamaria"
+      "package": "br.com.s4tsistemas.santamaria"
     },
     "web": {
       "favicon": "./assets/favicon.png"

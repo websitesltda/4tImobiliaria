@@ -1,4 +1,4 @@
-package br.com.quatrotsistemas.santamaria.newarchitecture;
+package br.com.s4tsistemas.santamaria.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import br.com.quatrotsistemas.santamaria.BuildConfig;
-import br.com.quatrotsistemas.santamaria.newarchitecture.components.MainComponentsRegistry;
-import br.com.quatrotsistemas.santamaria.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import br.com.s4tsistemas.santamaria.BuildConfig;
+import br.com.s4tsistemas.santamaria.newarchitecture.components.MainComponentsRegistry;
+import br.com.s4tsistemas.santamaria.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

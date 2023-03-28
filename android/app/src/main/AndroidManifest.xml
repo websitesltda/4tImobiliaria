@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="br.com.quatrotsistemas.santamaria">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="br.com.s4tsistemas.santamaria">
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -28,7 +28,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="br.com.quatrotsistemas.santamaria"/>
+        <data android:scheme="br.com.s4tsistemas.santamaria"/>
         <data android:scheme="exp+imobiliaria"/>
       </intent-filter>
     </activity>

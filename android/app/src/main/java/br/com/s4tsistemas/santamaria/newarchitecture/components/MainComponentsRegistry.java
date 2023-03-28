@@ -1,4 +1,4 @@
-package br.com.quatrotsistemas.santamaria.newarchitecture.components;
+package br.com.s4tsistemas.santamaria.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
