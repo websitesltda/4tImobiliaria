@@ -16,8 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "package": "br.com.s4tsistemas.santamaria",
-      "bundleIdentifier": "br.com.s4tsistemas.santamaria"
+      "package": "br.com.4tsistemas.santamaria",
+      "bundleIdentifier": "br.com.4tsistemas.santamaria"
     },
     "android": {
       "adaptiveIcon": {
