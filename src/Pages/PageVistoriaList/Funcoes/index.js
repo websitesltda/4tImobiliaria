@@ -58,7 +58,13 @@ function Funcoes({ navigation , model}) {
     //#endregion
 
     //#region Salvar
-    async function Salvar() {
+    async function Salvar(Id) {
+
+        await SQLite.Database.transaction((db) => {
+            db.executeSql("UPDATE Vistorias SET Status = ? where Id = ? ", [true, Id]);
+        });
+
+
         navigation.dispatch(
             CommonActions.reset({
                 index: 1,

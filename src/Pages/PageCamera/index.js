@@ -5,7 +5,7 @@ import { Camera } from 'expo-camera';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import SQLite from "../../SQLite/SQLite";
 import { CommonActions } from '@react-navigation/native';
-import * as NavigationBar from 'expo-navigation-bar';
+// import * as NavigationBar from 'expo-navigation-bar';
 
 function CameraForm({ navigation, route }) {
 
@@ -41,16 +41,16 @@ function CameraForm({ navigation, route }) {
             })
         );
 
-        (async () => {
-            await NavigationBar.setVisibilityAsync("visible");
-        })();
+        // (async () => {
+        //     await NavigationBar.setVisibilityAsync("visible");
+        // })();
 
     };
 
     useEffect(() => {
         (async () => {
-            await NavigationBar.setVisibilityAsync("hidden");
-            await NavigationBar.setBehaviorAsync('overlay-swipe')
+            // await NavigationBar.setVisibilityAsync("hidden");
+            // await NavigationBar.setBehaviorAsync('overlay-swipe')
             await Camera.requestCameraPermissionsAsync();
         })()
     }, []);

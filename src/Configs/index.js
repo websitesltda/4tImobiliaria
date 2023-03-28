@@ -6,6 +6,7 @@ const ColorGray200 = "#999999";
 const ColorBlack = "#000000";
 const ColorRed = "#F00000";
 const ColorGreen = "#4dd711";
+const ColorRedDard = "#7c2e2e";
 
 function Aliatorio() {
     return Math.random() * (99 - 10) + 10;
@@ -22,4 +23,4 @@ function Parametro() {
 
 const API = "http://200.233.145.221:16888/node/api/authenticate/twofa";
 
-export default { ColorPrimary, ColorWhite, ColorGreen, ColorGray, ColorRed, ColorGray100, ColorGray200, Parametro, ColorBlack, API };
+export default { ColorPrimary, ColorWhite, ColorRedDard, ColorGreen, ColorGray, ColorRed, ColorGray100, ColorGray200, Parametro, ColorBlack, API };

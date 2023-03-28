@@ -34,13 +34,20 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     //#region useEffect
     useEffect(() => {
         if (model) {
-            AmbienteList.filter(e => (e.title === model.Titulo))
-                .map(e => {
+
+            const Res = AmbienteList.filter(e => (e.title === model.Titulo));
+
+            if (Res.length === 0) {
+                setAmbiente({ id: null, title: model.Titulo });
+                setDescricao(model.Descricao);
+            }else{
+                Res.map(e => {
                     setIdAmbiente(model.Id);
                     setAmbiente(e);
                     setDescricao(model.Descricao);
                     setIdVistoria(model.Vistoria);
                 });
+            }
         }
     }, [AmbienteList, model]);
 
@@ -145,17 +152,21 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     //#region Salvar
     async function Salvar() {
 
+        console.log('salvando')
+
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
             return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
         };
         AsyncStorage.getItem('Parametro').then(e => {
             const Obj = { Id: e, Vistoria: Id, Titulo: AmbienteTextConfirm, Descricao: Descricao };
+
             SQLite.Database.transaction((db) => {
                 db.executeSql("SELECT * FROM AmbientesOptions where title = ?", [AmbienteTextConfirm], (_, { rows }) => {
                     if (rows['length'] > 0) {
                         (async () => {
                             await SQLite.InsertAmbiente(Obj);
+                            await SQLite.UpdateAmbiente(Obj);
                         })();
 
                         navigation.dispatch(
@@ -173,6 +184,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                     } else {
                         (async () => {
                             await SQLite.InsertAmbiente(Obj);
+                            await SQLite.UpdateAmbiente(Obj);
                             await SQLite.InsertAmbientesOptions(AmbienteTextConfirm);
                         })();
 
@@ -198,6 +210,8 @@ function Funcoes({ navigation, Id, vistoria, model }) {
 
     //#region Editar
     async function Editar() {
+
+        console.log('editando')
 
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {

@@ -9,7 +9,7 @@ import style from './style';
 
 function VistoriaList({ navigation, route }) {
 
-    const { Tipo, Rua, Numero, Bairro, Cidade, Estado, Image: Imagem } = route.params;
+    const { Id, Tipo, Rua, Numero, Bairro, Cidade, Estado, Image: Imagem } = route.params;
     const { Ambientes, Avancar, Salvar, Deletar, Editar } = Funcoes({ navigation, model: route.params });
     const [Excluir, setExcluir] = useState(false);
     const [Model, setModel] = useState({});
@@ -74,7 +74,7 @@ function VistoriaList({ navigation, route }) {
                 icon="content-save"
                 style={style.fabSave}
                 color={Configs.ColorWhite}
-                onPress={() => Salvar()}
+                onPress={() => Salvar(Id)}
             />
 
             <Dialog visible={Excluir} dismissable={false} style={{ borderRadius: 5 }}>

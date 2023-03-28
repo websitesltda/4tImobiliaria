@@ -58,6 +58,11 @@ function Funcoes({ navigation }) {
 
     //#region Avancar
     async function Avancar(model) {
+
+        await SQLite.Database.transaction((db) => {
+            db.executeSql("UPDATE Vistorias SET Status = ? where Id = ? ", [false, model.Id]);
+        });
+
         navigation.dispatch(
             CommonActions.reset({
                 index: 1,
