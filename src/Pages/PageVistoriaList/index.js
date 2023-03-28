@@ -10,7 +10,7 @@ import style from './style';
 function VistoriaList({ navigation, route }) {
 
     const { Tipo, Rua, Numero, Bairro, Cidade, Estado, Image: Imagem } = route.params;
-    const { Ambientes, Avancar, Salvar, Deletar } = Funcoes({ navigation, model: route.params });
+    const { Ambientes, Avancar, Salvar, Deletar, Editar } = Funcoes({ navigation, model: route.params });
     const [Excluir, setExcluir] = useState(false);
     const [Model, setModel] = useState({});
 
@@ -54,7 +54,7 @@ function VistoriaList({ navigation, route }) {
                                     <Icon name='delete' size={25} color={Configs.ColorRed} />
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => Avancar(route.params)} style={style.ComodosBtn}>
+                                <TouchableOpacity onPress={() => Editar(route.params, e)} style={style.ComodosBtn}>
                                     <Icon name='pen' size={25} color={Configs.ColorWhite} />
                                 </TouchableOpacity>
                             </View>
@@ -84,7 +84,7 @@ function VistoriaList({ navigation, route }) {
                 </Dialog.Content>
                 <Dialog.Actions>
                     <Button onPress={() => [setExcluir(false), setModel({})]}>Não</Button>
-                    <Button onPress={() => [Deletar(Model),setExcluir(false), setModel({})]}>Sim</Button>
+                    <Button onPress={() => [Deletar(Model), setExcluir(false), setModel({})]}>Sim</Button>
                 </Dialog.Actions>
             </Dialog>
 

@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, View, Text, TextInput, Platform,  Image, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView, StatusBar, View, Text, TextInput, Platform, Image, TouchableOpacity, FlatList } from 'react-native';
 import Configs from '../../Configs';
 import Icon from '@expo/vector-icons/FontAwesome';
 import { AutocompleteDropdown } from 'react-native-autocomplete-4t';
@@ -9,10 +9,9 @@ import Mic from './../../../assets/mic.json';
 import Wave from './../../../assets/wave.json';
 
 function Formulario({ navigation, route }) {
-    const { vistoria } = route.params;
-    const {Id, Tipo, Rua, Numero, Bairro, Cidade, Estado } = vistoria;
-    const { Teclado, startSpeechToText, Salvar, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, Id, vistoria });
-
+    const { vistoria, model } = route.params;
+    const { Id, Tipo, Rua, Numero, Bairro, Cidade, Estado } = vistoria;
+    const { Teclado, startSpeechToText, Salvar, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, Id, vistoria, model });
     //#region Render
     function Render() {
         return (
@@ -26,7 +25,7 @@ function Formulario({ navigation, route }) {
                         autoCapitalize: 'none',
                         style: style.AutoComplete
                     }}
-                    initialValue={Ambiente}
+                    initialValue={{ id: 1 }}
                     onChangeText={(e) => setAmbiente({ id: null, title: e })}
                     onSelectItem={(e) => setAmbiente(e)}
                     rightButtonsContainerStyle={style.rightButtonsContainerStyle}
@@ -194,7 +193,7 @@ function Formulario({ navigation, route }) {
                     width: '100%',
                     height: 60,
                     position: 'absolute',
-                    bottom: Platform.OS === 'ios' ? 30:0,
+                    bottom: Platform.OS === 'ios' ? 30 : 0,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>

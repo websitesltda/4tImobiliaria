@@ -32,7 +32,25 @@ function Funcoes({ navigation , model}) {
                     { name: 'HomePage' },
                     { name: 'DrawerPagesVistoria' },
                     { name: 'VistoriaList', params: route },
-                    { name: 'Formulario', params: { vistoria: route } }
+                    { name: 'Formulario', params: { vistoria: route, model:null } }
+                ]
+            })
+        );
+    };
+    //#endregion
+
+
+    //#region Editar
+    async function Editar(route, model) {
+        AsyncStorage.setItem('Parametro', model.Id.toString());
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [
+                    { name: 'HomePage' },
+                    { name: 'DrawerPagesVistoria' },
+                    { name: 'VistoriaList', params: route },
+                    { name: 'Formulario', params: { vistoria: route, model:model } }
                 ]
             })
         );
@@ -76,7 +94,7 @@ function Funcoes({ navigation , model}) {
     },[]);
 
     return {
-        Teclado, Ambientes, Avancar, Salvar, Deletar
+        Teclado, Ambientes, Avancar, Salvar, Deletar, Editar
     };
 };
 

@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voice from '@react-native-voice/voice';
 import SQLite from "../../../SQLite/SQLite";
 
-function Funcoes({ navigation, Id, vistoria }) {
+function Funcoes({ navigation, Id, vistoria, model }) {
 
     //#region Estancias
     const [Teclado, setTeclado] = useState(false);
@@ -18,6 +18,15 @@ function Funcoes({ navigation, Id, vistoria }) {
 
     const AmbienteTextConfirm = Ambiente !== null ? Ambiente.title : '';
     //#endregion
+
+    useEffect(() => {
+        if (model) {
+            AmbienteList.filter(e => (e.title === model.Titulo))
+                .map(e => {
+                    setAmbiente({id:"1"});
+                });
+        }
+    }, [model])
 
     //#region KeyboardControl
     Keyboard.addListener("keyboardDidShow", () => {
@@ -122,7 +131,7 @@ function Funcoes({ navigation, Id, vistoria }) {
     async function Salvar() {
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
-            return Alert.alert('Atenção','Insira o tipo de ambiente e a descrição para proseguir')
+            return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
         };
         AsyncStorage.getItem('Parametro').then(e => {
             const Obj = { Id: e, Vistoria: Id, Titulo: AmbienteTextConfirm, Descricao: Descricao };
