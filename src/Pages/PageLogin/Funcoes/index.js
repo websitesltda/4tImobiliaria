@@ -41,28 +41,36 @@ function Funcoes({ navigation }) {
 
     //#region LogarFuncionario
     async function LogarFuncionario() {
-        Keyboard.dismiss();
-        try {
-            await fetch(Configs.API + `?username=${Usuario}&password=${Senha}`, {
-                method: 'GET'
-            }).then((response) => response.json())
-                .then(e => {
-                    if (e.error) {
-                        setErro(true);
-                    } else {
-                        navigation.dispatch(
-                            CommonActions.reset({
-                                index: 1,
-                                routes: [
-                                    { name: 'HomePage' }
-                                ]
-                            })
-                        );
-                    };
-                });
-        } catch (error) {
-            console.log(error)
-        };
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [
+                    { name: 'HomePage' }
+                ]
+            })
+        );
+        // Keyboard.dismiss();
+        // try {
+        //     await fetch(Configs.API + `?username=${Usuario}&password=${Senha}`, {
+        //         method: 'GET'
+        //     }).then((response) => response.json())
+        //         .then(e => {
+        //             if (e.error) {
+        //                 setErro(true);
+        //             } else {
+        //                 navigation.dispatch(
+        //                     CommonActions.reset({
+        //                         index: 1,
+        //                         routes: [
+        //                             { name: 'HomePage' }
+        //                         ]
+        //                     })
+        //                 );
+        //             };
+        //         });
+        // } catch (error) {
+        //     console.log(error)
+        // };
     };
     //#endregion
 
