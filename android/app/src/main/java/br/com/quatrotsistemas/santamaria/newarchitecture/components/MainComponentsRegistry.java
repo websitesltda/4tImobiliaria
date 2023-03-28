@@ -1,4 +1,4 @@
-package com.caiosoliver.Imobiliaria.newarchitecture.components;
+package br.com.quatrotsistemas.santamaria.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

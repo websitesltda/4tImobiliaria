@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.caiosoliver.Imobiliaria",
+    package = "br.com.quatrotsistemas.santamaria",
 )
 
 android_resource(
     name = "res",
-    package = "com.caiosoliver.Imobiliaria",
+    package = "br.com.quatrotsistemas.santamaria",
     res = "src/main/res",
 )
 

@@ -1,4 +1,4 @@
-package com.caiosoliver.Imobiliaria.newarchitecture;
+package br.com.quatrotsistemas.santamaria.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.caiosoliver.Imobiliaria.BuildConfig;
-import com.caiosoliver.Imobiliaria.newarchitecture.components.MainComponentsRegistry;
-import com.caiosoliver.Imobiliaria.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import br.com.quatrotsistemas.santamaria.BuildConfig;
+import br.com.quatrotsistemas.santamaria.newarchitecture.components.MainComponentsRegistry;
+import br.com.quatrotsistemas.santamaria.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
