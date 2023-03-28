@@ -6,7 +6,7 @@ import Configs from "../../../Configs";
 import { useEffect } from "react";
 import SQLite from "../../../SQLite/SQLite";
 
-function Funcoes({ navigation , model}) {
+function Funcoes({ navigation, model }) {
 
     //#region Estancias
     const [Teclado, setTeclado] = useState(false);
@@ -24,6 +24,7 @@ function Funcoes({ navigation , model}) {
 
     //#region Avancar
     async function Avancar(route) {
+        AsyncStorage.setItem('Voice', '')
         AsyncStorage.setItem('Parametro', Configs.Parametro());
         navigation.dispatch(
             CommonActions.reset({
@@ -32,7 +33,7 @@ function Funcoes({ navigation , model}) {
                     { name: 'HomePage' },
                     { name: 'DrawerPagesVistoria' },
                     { name: 'VistoriaList', params: route },
-                    { name: 'Formulario', params: { vistoria: route, model:null } }
+                    { name: 'Formulario', params: { vistoria: route, model: null } }
                 ]
             })
         );
@@ -43,6 +44,7 @@ function Funcoes({ navigation , model}) {
     //#region Editar
     async function Editar(route, model) {
         AsyncStorage.setItem('Parametro', model.Id.toString());
+        AsyncStorage.setItem('Voice', model.Descricao)
         navigation.dispatch(
             CommonActions.reset({
                 index: 1,
@@ -50,7 +52,7 @@ function Funcoes({ navigation , model}) {
                     { name: 'HomePage' },
                     { name: 'DrawerPagesVistoria' },
                     { name: 'VistoriaList', params: route },
-                    { name: 'Formulario', params: { vistoria: route, model:model } }
+                    { name: 'Formulario', params: { vistoria: route, model: model } }
                 ]
             })
         );
@@ -59,11 +61,10 @@ function Funcoes({ navigation , model}) {
 
     //#region Salvar
     async function Salvar(Id) {
-
+        AsyncStorage.setItem('Voice', '')
         await SQLite.Database.transaction((db) => {
             db.executeSql("UPDATE Vistorias SET Status = ? where Id = ? ", [true, Id]);
         });
-
 
         navigation.dispatch(
             CommonActions.reset({
@@ -90,14 +91,14 @@ function Funcoes({ navigation , model}) {
     };
 
     async function Deletar(model) {
-      SQLite.DeleteAmbiente(model);
-      BuscarAmbientes();
+        SQLite.DeleteAmbiente(model);
+        BuscarAmbientes();
     };
 
 
-    useEffect(()=>{
+    useEffect(() => {
         BuscarAmbientes();
-    },[]);
+    }, []);
 
     return {
         Teclado, Ambientes, Avancar, Salvar, Deletar, Editar

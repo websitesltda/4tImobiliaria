@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Keyboard, Alert } from "react-native";
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voice from '@react-native-voice/voice';
 import SQLite from "../../../SQLite/SQLite";
@@ -40,7 +40,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
             if (Res.length === 0) {
                 setAmbiente({ id: null, title: model.Titulo });
                 setDescricao(model.Descricao);
-            }else{
+            } else {
                 Res.map(e => {
                     setIdAmbiente(model.Id);
                     setAmbiente(e);
@@ -73,16 +73,20 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                 };
             });
         });
-
-        AsyncStorage.setItem('Voice', " ").then(() => {
-            setDescricao("");
-        });
-        Voice.onSpeechError = onSpeechError;
-        Voice.onSpeechResults = onSpeechResults;
-        return () => {
-            Voice.destroy().then(Voice.removeAllListeners);
-        }
+  
     }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            Voice.onSpeechError = onSpeechError;
+            // Voice.onSpeechStart = startSpeechToText;
+            Voice.onSpeechEnd = stopSpeechToText;
+            Voice.onSpeechResults = onSpeechResults;
+            return () => {
+                Voice.destroy().then(Voice.removeAllListeners);
+            };
+        }, [])
+    );
     //#endregion
 
     //#region startSpeechToText stopSpeechToText onSpeechResults
@@ -98,6 +102,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
 
     async function onSpeechResults(result) {
         const Audio = result.value[0].toString();
+
         await AsyncStorage.getItem('Voice').then(e => {
             const Text = e + ' ' + Audio;
             if (e !== null) {
@@ -152,8 +157,6 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     //#region Salvar
     async function Salvar() {
 
-        console.log('salvando')
-
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
             return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
@@ -180,6 +183,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                             })
                         );
                         AsyncStorage.setItem('Parametro', '');
+                        AsyncStorage.setItem('Voice', '');
 
                     } else {
                         (async () => {
@@ -200,6 +204,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                         );
 
                         AsyncStorage.setItem('Parametro', '');
+                        AsyncStorage.setItem('Voice', '');
 
                     };
                 });
@@ -210,8 +215,6 @@ function Funcoes({ navigation, Id, vistoria, model }) {
 
     //#region Editar
     async function Editar() {
-
-        console.log('editando')
 
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
@@ -239,6 +242,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                             })
                         );
                         AsyncStorage.setItem('Parametro', '');
+                        AsyncStorage.setItem('Voice', '');
 
                     } else {
                         (async () => {
@@ -259,6 +263,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                         );
 
                         AsyncStorage.setItem('Parametro', '');
+                        AsyncStorage.setItem('Voice', '');
 
                     };
                 });
