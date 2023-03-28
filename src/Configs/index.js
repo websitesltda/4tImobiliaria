@@ -20,8 +20,6 @@ function Parametro() {
     return arr.join("").replace('------', '');
 };
 
-console.log(Parametro())
-
 const API = "http://200.233.145.221:16888/node/api/authenticate/twofa";
 
 export default { ColorPrimary, ColorWhite, ColorGreen, ColorGray, ColorRed, ColorGray100, ColorGray200, Parametro, ColorBlack, API };

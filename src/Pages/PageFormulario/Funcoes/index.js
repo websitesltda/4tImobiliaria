@@ -22,18 +22,6 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     const AmbienteTextConfirm = Ambiente !== null ? Ambiente.title : '';
     //#endregion
 
-    useEffect(() => {
-        if (model) {
-            AmbienteList.filter(e => (e.title === model.Titulo))
-            .map(e => {
-                setIdAmbiente(model.Id);
-                setAmbiente(e);
-                setDescricao(model.Descricao);
-                setIdVistoria(model.Vistoria);
-            });
-        }
-    }, [AmbienteList])
-
     //#region KeyboardControl
     Keyboard.addListener("keyboardDidShow", () => {
         setTeclado(true);
@@ -42,6 +30,19 @@ function Funcoes({ navigation, Id, vistoria, model }) {
         setTeclado(false);
     });
     //#endregion
+
+    //#region useEffect
+    useEffect(() => {
+        if (model) {
+            AmbienteList.filter(e => (e.title === model.Titulo))
+                .map(e => {
+                    setIdAmbiente(model.Id);
+                    setAmbiente(e);
+                    setDescricao(model.Descricao);
+                    setIdVistoria(model.Vistoria);
+                });
+        }
+    }, [AmbienteList, model]);
 
     useEffect(() => {
         AsyncStorage.getItem('Parametro').then(e => {
@@ -75,7 +76,9 @@ function Funcoes({ navigation, Id, vistoria, model }) {
             Voice.destroy().then(Voice.removeAllListeners);
         }
     }, []);
+    //#endregion
 
+    //#region startSpeechToText stopSpeechToText onSpeechResults
     async function startSpeechToText() {
         await Voice.start("pt-BR");
         setRecording(true);
@@ -101,7 +104,9 @@ function Funcoes({ navigation, Id, vistoria, model }) {
             };
         });
     };
+    //#endregion
 
+    //#region onDescricao onSpeechError RemoveImage
     async function onDescricao(Text) {
         setDescricao(Text);
         AsyncStorage.setItem('Voice', Text);
@@ -116,7 +121,9 @@ function Funcoes({ navigation, Id, vistoria, model }) {
         const Res = Fotos.filter(e => (e !== model));
         setFotos(Res);
     };
+    //#endregion
 
+    //#region Fotografar
     function Fotografar(route) {
         AsyncStorage.getItem('Parametro').then(e => {
             navigation.dispatch(
@@ -127,14 +134,17 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                         { name: 'DrawerPagesVistoria' },
                         { name: 'VistoriaList', params: route },
                         { name: 'Formulario', params: { vistoria: route } },
-                        { name: 'CameraForm', params: { vistoria: route, parametro: e } }
+                        { name: 'CameraForm', params: { vistoria: route, parametro: e, model: model === null ? { "Descricao": Descricao, "Id": e, "Titulo": AmbienteTextConfirm, "Vistoria": Id } : { "Descricao": Descricao, "Id": IdAmbiente, "Titulo": AmbienteTextConfirm, "Vistoria": IdVistoria } } }
                     ]
                 })
             );
         })
     };
+    //#endregion
 
+    //#region Salvar
     async function Salvar() {
+
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
             return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
@@ -158,6 +168,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                                 ]
                             })
                         );
+                        AsyncStorage.setItem('Parametro', '');
 
                     } else {
                         (async () => {
@@ -176,14 +187,74 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                             })
                         );
 
+                        AsyncStorage.setItem('Parametro', '');
+
                     };
                 });
             });
         });
     };
+    //#endregion
+
+    //#region Editar
+    async function Editar() {
+
+        Keyboard.dismiss();
+        if (AmbienteTextConfirm === "") {
+            return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
+        };
+        AsyncStorage.getItem('Parametro').then(e => {
+            const Obj = { Id: IdAmbiente, Titulo: AmbienteTextConfirm, Descricao: Descricao };
+
+            SQLite.Database.transaction((db) => {
+                db.executeSql("SELECT * FROM AmbientesOptions where title = ?", [AmbienteTextConfirm], (_, { rows }) => {
+                    if (rows['length'] > 0) {
+                        (async () => {
+                            await SQLite.UpdateAmbiente(Obj);
+                            await SQLite.InsertAmbiente(Obj);
+                        })();
+
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 1,
+                                routes: [
+                                    { name: 'HomePage' },
+                                    { name: 'DrawerPagesVistoria' },
+                                    { name: 'VistoriaList', params: vistoria }
+                                ]
+                            })
+                        );
+                        AsyncStorage.setItem('Parametro', '');
+
+                    } else {
+                        (async () => {
+                            await SQLite.UpdateAmbiente(Obj);
+                            await SQLite.InsertAmbiente(Obj);
+                            await SQLite.InsertAmbientesOptions(AmbienteTextConfirm);
+                        })();
+
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 1,
+                                routes: [
+                                    { name: 'HomePage' },
+                                    { name: 'DrawerPagesVistoria' },
+                                    { name: 'VistoriaList', params: vistoria }
+                                ]
+                            })
+                        );
+
+                        AsyncStorage.setItem('Parametro', '');
+
+                    };
+                });
+            });
+        });
+    };
+    //#endregion
 
     return {
-        Teclado, startSpeechToText, Salvar, AmbienteList, RemoveImage, Fotografar, stopSpeechToText, Recording, Descricao, Ambiente, setAmbiente, setDescricao, onDescricao, BtnSalvar, setBtnSalvar, Fotos, setFotos
+        Teclado, startSpeechToText, Salvar, IdAmbiente, AmbienteList, Editar, RemoveImage, Fotografar, stopSpeechToText, Recording, Descricao, Ambiente, setAmbiente, setDescricao, onDescricao, BtnSalvar, setBtnSalvar, Fotos, setFotos
     };
 };
 

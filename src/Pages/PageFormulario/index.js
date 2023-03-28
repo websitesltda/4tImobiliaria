@@ -11,7 +11,7 @@ import Wave from './../../../assets/wave.json';
 function Formulario({ navigation, route }) {
     const { vistoria, model } = route.params;
     const { Id, Tipo, Rua, Numero, Bairro, Cidade, Estado } = vistoria;
-    const { Teclado, startSpeechToText, Salvar, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, Id, vistoria, model });
+    const { Teclado, startSpeechToText, Salvar, Editar, IdAmbiente, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, Id, vistoria, model });
     //#region Render
     function Render() {
         return (
@@ -24,7 +24,7 @@ function Formulario({ navigation, route }) {
                         autoCorrect: false,
                         autoCapitalize: 'none',
                         style: style.AutoComplete,
-                        value:Ambiente ? Ambiente.title:null
+                        value: Ambiente ? Ambiente.title : null
                     }}
                     onChangeText={(e) => setAmbiente({ id: null, title: e })}
                     onSelectItem={(e) => setAmbiente(e)}
@@ -34,7 +34,7 @@ function Formulario({ navigation, route }) {
                     suggestionsListContainerStyle={style.suggestionsListContainerStyle}
                     containerStyle={style.containerStyle}
                     clearOnFocus={false}
-                    closeOnBlur={true}
+                    closeOnBlur={false}
                     closeOnSubmit={false}
                     emptyResultText="Opção não cadastrada"
                     renderItem={model => <View style={{ width: '100%', height: 40, alignItems: 'flex-start', paddingHorizontal: 10, justifyContent: 'center' }}><Text style={{ fontWeight: '500', color: Configs.ColorGray200 }}>{model.title}</Text></View>}
@@ -72,6 +72,7 @@ function Formulario({ navigation, route }) {
 
                             <Text style={{
                                 fontSize: 13,
+                                marginRight: 5,
                                 color: Configs.ColorWhite
                             }}>ADICIONAR FOTOS</Text>
                             <Icon name='camera' size={15} color={Configs.ColorWhite} />
@@ -198,7 +199,7 @@ function Formulario({ navigation, route }) {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
-                    <TouchableOpacity onPress={Salvar} style={{
+                    <TouchableOpacity onPress={()=>IdAmbiente !== "" ? Editar() : Salvar()} style={{
                         width: '70%',
                         height: 50,
                         borderRadius: 5,
@@ -215,7 +216,7 @@ function Formulario({ navigation, route }) {
                     </TouchableOpacity>
                 </View>}
 
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 

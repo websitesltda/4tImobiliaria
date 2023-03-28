@@ -112,7 +112,7 @@ async function InsertAmbiente(model) {
 async function UpdateAmbiente(model) {
     Database.transaction((db) => {
         db.executeSql(
-            `UPDATE FROM Ambientes SET Titulo = ?, Descricao = ? WHERE Id = ?`,
+            `UPDATE Ambientes SET Titulo = ?, Descricao = ? WHERE Id = ?`,
             [model.Titulo, model.Descricao, model.Id]
         );
     });

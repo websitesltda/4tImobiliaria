@@ -36,7 +36,7 @@ function CameraForm({ navigation, route }) {
                     { name: 'HomePage' },
                     { name: 'DrawerPagesVistoria' },
                     { name: 'VistoriaList', params: route.params.vistoria },
-                    { name: 'Formulario', params: { vistoria: route.params.vistoria } }
+                    { name: 'Formulario', params: { vistoria: route.params.vistoria, model: route.params.model } }
                 ]
             })
         );
@@ -54,6 +54,20 @@ function CameraForm({ navigation, route }) {
             await Camera.requestCameraPermissionsAsync();
         })()
     }, []);
+
+    function Back() {
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [
+                    { name: 'HomePage' },
+                    { name: 'DrawerPagesVistoria' },
+                    { name: 'VistoriaList', params: route.params.vistoria },
+                    { name: 'Formulario', params: { vistoria: route.params.vistoria, model: route.params.model } }
+                ]
+            })
+        );
+    };
 
     return (
         <View style={
@@ -76,7 +90,7 @@ function CameraForm({ navigation, route }) {
             <Camera ref={CameraRef} style={{ width: '100%', height: '100%', justifyContent: 'center' }} flashMode={Flash ? 'on' : 'off'} ratio={'16:9'} type={Camera.Constants.Type.back} >
                 <View style={{ width: '100%', height: '100%' }}>
                     <View style={{ width: '100%', height: 90, position: 'absolute', bottom: 0, marginBottom: 30, paddingHorizontal: 80, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                        <TouchableOpacity style={{ width: 50, height: 50, backgroundColor: Configs.ColorWhite, borderRadius: 70, alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={Back} style={{ width: 50, height: 50, backgroundColor: Configs.ColorWhite, borderRadius: 70, alignItems: 'center', justifyContent: 'center' }}>
                             <Icon name="chevron-left-circle" size={30} color={Configs.ColorPrimary} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => OnFotografar()} style={{ width: 70, height: 70, backgroundColor: Configs.ColorWhite, borderRadius: 70, alignItems: 'center', justifyContent: 'center' }}>
