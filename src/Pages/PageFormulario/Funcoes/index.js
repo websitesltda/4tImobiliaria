@@ -12,6 +12,9 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     const [BtnSalvar, setBtnSalvar] = useState(false);
     const [Recording, setRecording] = useState(false);
     const [AmbienteList, setAmbienteList] = useState([]);
+
+    const [IdAmbiente, setIdAmbiente] = useState('');
+    const [IdVistoria, setIdVistoria] = useState('');
     const [Ambiente, setAmbiente] = useState({});
     const [Descricao, setDescricao] = useState('');
     const [Fotos, setFotos] = useState([]);
@@ -22,11 +25,14 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     useEffect(() => {
         if (model) {
             AmbienteList.filter(e => (e.title === model.Titulo))
-                .map(e => {
-                    setAmbiente({id:"1"});
-                });
+            .map(e => {
+                setIdAmbiente(model.Id);
+                setAmbiente(e);
+                setDescricao(model.Descricao);
+                setIdVistoria(model.Vistoria);
+            });
         }
-    }, [model])
+    }, [AmbienteList])
 
     //#region KeyboardControl
     Keyboard.addListener("keyboardDidShow", () => {
