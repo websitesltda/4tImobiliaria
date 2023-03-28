@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, View, Text, TextInput,  Image, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView, StatusBar, View, Text, TextInput, Platform,  Image, TouchableOpacity, FlatList } from 'react-native';
 import Configs from '../../Configs';
 import Icon from '@expo/vector-icons/FontAwesome';
 import { AutocompleteDropdown } from 'react-native-autocomplete-4t';
@@ -194,7 +194,7 @@ function Formulario({ navigation, route }) {
                     width: '100%',
                     height: 60,
                     position: 'absolute',
-                    bottom: 0,
+                    bottom: Platform.OS === 'ios' ? 30:0,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>

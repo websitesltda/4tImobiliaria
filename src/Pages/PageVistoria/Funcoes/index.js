@@ -31,11 +31,11 @@ function Funcoes({ navigation }) {
         // (async () => {
         //     await SQLite.TruncateVistorias()
         // })();
-        // Model.map(e => {
-        //     (async () => {
-        //         await SQLite.InsertVistoria(e);
-        //     })();
-        // });
+        Model.map(e => {
+            (async () => {
+                await SQLite.InsertVistoria(e);
+            })();
+        });
         (async () => {
             await SQLite.Database.transaction((db) => {
                 db.executeSql("SELECT * FROM Vistorias", [], (_, { rows }) => {

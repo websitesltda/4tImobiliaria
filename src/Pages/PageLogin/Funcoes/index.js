@@ -8,13 +8,13 @@ function Funcoes({ navigation }) {
     //#region Estancias
     const [Teclado, setTeclado] = useState(false);
     const [Modo, setModo] = useState('Cliente');
-    const [Usuario, setUsuario] = useState('');
-    const [Senha, setSenha] = useState('');
+    const [Usuario, setUsuario] = useState('usuario');
+    const [Senha, setSenha] = useState('bbbb5555');
     const [Erro, setErro] = useState(false);
     //#endregion
 
     useEffect(() => {
-        setSenha('');
+        // setSenha('');
     }, [Modo]);
 
     //#region KeyboardControl

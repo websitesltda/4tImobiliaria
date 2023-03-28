@@ -87,6 +87,7 @@ const Style = StyleSheet.create({
     CardContainer: {
         width: '100%',
         height: 120,
+        marginTop:10,
         marginBottom: 10,
         alignItems: 'center'
     },

@@ -23,8 +23,8 @@ Database.transaction((db) => {
 async function InsertVistoria(model) {
     Database.transaction((db) => {
         db.executeSql(
-            `INSERT INTO Vistorias ( Image, Tipo, Rua, Numero, Bairro, Cidade, Estado ) VALUES  (?,?,?,?,?,?,?)`,
-            [model.Image, model.Tipo, model.Rua, model.Numero, model.Bairro, model.Cidade, model.Estado]
+            `INSERT INTO Vistorias (Id, Image, Tipo, Rua, Numero, Bairro, Cidade, Estado ) VALUES  (?,?,?,?,?,?,?,?)`,
+            [model.Id, model.Image, model.Tipo, model.Rua, model.Numero, model.Bairro, model.Cidade, model.Estado]
         );
     });
 };

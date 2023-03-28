@@ -77,7 +77,7 @@ function App() {
         headerStyle: {
           backgroundColor: Configs.ColorPrimary
         }
-      }} initialRouteName='HomePage'>
+      }} initialRouteName='Login'>
         <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
         <Stack.Screen name="HomePage" options={{ headerShown: false }} component={DrawerPages} />
         <Stack.Screen name="DrawerPagesVistoria" options={{ headerShown: false }} component={DrawerPagesVistoria} />

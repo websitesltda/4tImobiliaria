@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Keyboard } from "react-native";
+import { Keyboard, Alert } from "react-native";
 import { CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voice from '@react-native-voice/voice';
@@ -51,14 +51,14 @@ function Funcoes({ navigation, Id, vistoria }) {
             });
         });
 
-        // AsyncStorage.setItem('Voice', " ").then(() => {
-        //     setDescricao("");
-        // });
-        // Voice.onSpeechError = onSpeechError;
-        // Voice.onSpeechResults = onSpeechResults;
-        // return () => {
-        //     Voice.destroy().then(Voice.removeAllListeners);
-        // }
+        AsyncStorage.setItem('Voice', " ").then(() => {
+            setDescricao("");
+        });
+        Voice.onSpeechError = onSpeechError;
+        Voice.onSpeechResults = onSpeechResults;
+        return () => {
+            Voice.destroy().then(Voice.removeAllListeners);
+        }
     }, []);
 
     async function startSpeechToText() {
@@ -122,7 +122,7 @@ function Funcoes({ navigation, Id, vistoria }) {
     async function Salvar() {
         Keyboard.dismiss();
         if (AmbienteTextConfirm === "") {
-            return console.log('Erro')
+            return Alert.alert('Atenção','Insira o tipo de ambiente e a descrição para proseguir')
         };
         AsyncStorage.getItem('Parametro').then(e => {
             const Obj = { Id: e, Vistoria: Id, Titulo: AmbienteTextConfirm, Descricao: Descricao };

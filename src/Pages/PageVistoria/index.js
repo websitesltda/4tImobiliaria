@@ -19,7 +19,6 @@ function Vistoria({ navigation }) {
                         <Skeleton animation="pulse" style={{ width: 100, height: 15, marginBottom: 3 }} />
                         <Skeleton animation="pulse" style={{ width: 100, height: 15, marginBottom: 3 }} />
                         <Skeleton animation="pulse" style={{ width: 100, height: 15, marginBottom: 3 }} />
-
                     </View>
                     <View style={style.CardTextButton}>
                         <Skeleton animation="pulse" style={{ width: 100, height: 20, marginTop: 10 }} />
