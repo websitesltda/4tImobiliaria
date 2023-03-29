@@ -8,6 +8,9 @@ import Configs from './src/Configs';
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+{/* <key>NSPhotoLibraryUsageDescription</key>
+<string>This app requires access to the photo library.</string> */}
+
 //#region import pages
 import Login from './src/Pages/PageLogin';
 import Home from './src/Pages/PageHome';

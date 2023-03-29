@@ -11,7 +11,7 @@ import Wave from './../../../assets/wave.json';
 function Formulario({ navigation, route }) {
     const { vistoria, model } = route.params;
     const { Id, Tipo, Rua, Numero, Bairro, Cidade, Estado } = vistoria;
-    const { Teclado, startSpeechToText, Salvar, Editar, IdAmbiente, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, Id, vistoria, model });
+    const { Teclado, startSpeechToText, Salvar, Editar, IdAmbiente, AmbienteList, stopSpeechToText, Fotos, Fotografar, RemoveImage, Recording, Descricao, onDescricao, Ambiente, setAmbiente, BtnSalvar, setBtnSalvar } = Funcoes({ navigation, vistoria, model });
     //#region Render
     function Render() {
         return (

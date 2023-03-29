@@ -81,6 +81,7 @@ function Funcoes({ navigation, model }) {
     async function BuscarAmbientes() {
         SQLite.Database.transaction((db) => {
             db.executeSql("SELECT * FROM Ambientes where Vistoria = ?", [model.Id], (_, { rows }) => {
+                console.log(rows['_array']);
                 if (rows['length'] > 0) {
                     setAmbientes(rows['_array']);
                 } else {

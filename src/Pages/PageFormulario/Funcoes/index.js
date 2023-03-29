@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voice from '@react-native-voice/voice';
 import SQLite from "../../../SQLite/SQLite";
 
-function Funcoes({ navigation, Id, vistoria, model }) {
+function Funcoes({ navigation, vistoria, model }) {
 
     //#region Estancias
     const [Teclado, setTeclado] = useState(false);
@@ -73,7 +73,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                 };
             });
         });
-  
+
     }, []);
 
     useFocusEffect(
@@ -92,6 +92,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     //#region startSpeechToText stopSpeechToText onSpeechResults
     async function startSpeechToText() {
         await Voice.start("pt-BR");
+        AsyncStorage.setItem('Voice', Descricao);
         setRecording(true);
     };
 
@@ -101,20 +102,14 @@ function Funcoes({ navigation, Id, vistoria, model }) {
     };
 
     async function onSpeechResults(result) {
-        const Audio = result.value[0].toString();
-
-        await AsyncStorage.getItem('Voice').then(e => {
-            const Text = e + ' ' + Audio;
-            if (e !== null) {
-                AsyncStorage.setItem('Voice', Text).then(() => {
-                    setDescricao(Text);
-                });
-            } else {
-                AsyncStorage.setItem('Voice', Audio).then(() => {
-                    setDescricao(Audio);
-                });
-            };
-        });
+        const Texto = await AsyncStorage.getItem('Voice');
+        const Audio1 = result.value[0].toString();
+        const Audio2 = Texto + ' ' + result.value[0].toString();
+        if (Texto) {
+            setDescricao(Audio2);
+        } else {
+            setDescricao(Audio1);
+        };
     };
     //#endregion
 
@@ -146,7 +141,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
                         { name: 'DrawerPagesVistoria' },
                         { name: 'VistoriaList', params: route },
                         { name: 'Formulario', params: { vistoria: route } },
-                        { name: 'CameraForm', params: { vistoria: route, parametro: e, model: model === null ? { "Descricao": Descricao, "Id": e, "Titulo": AmbienteTextConfirm, "Vistoria": Id } : { "Descricao": Descricao, "Id": IdAmbiente, "Titulo": AmbienteTextConfirm, "Vistoria": IdVistoria } } }
+                        { name: 'CameraForm', params: { vistoria: route, parametro: e, model: model === null ? { "Descricao": Descricao, "Id": e, "Titulo": AmbienteTextConfirm, "Vistoria": vistoria.Id } : { "Descricao": Descricao, "Id": IdAmbiente, "Titulo": AmbienteTextConfirm, "Vistoria": IdVistoria } } }
                     ]
                 })
             );
@@ -162,7 +157,7 @@ function Funcoes({ navigation, Id, vistoria, model }) {
             return Alert.alert('Atenção', 'Insira o tipo de ambiente e a descrição para proseguir')
         };
         AsyncStorage.getItem('Parametro').then(e => {
-            const Obj = { Id: e, Vistoria: Id, Titulo: AmbienteTextConfirm, Descricao: Descricao };
+            const Obj = { Id: e, Vistoria: vistoria.Id, Titulo: AmbienteTextConfirm, Descricao: Descricao };
 
             SQLite.Database.transaction((db) => {
                 db.executeSql("SELECT * FROM AmbientesOptions where title = ?", [AmbienteTextConfirm], (_, { rows }) => {
